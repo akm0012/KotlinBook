@@ -24,6 +24,14 @@ fun main(args: Array<String>) {
         else -> "is in awful condition!"
     }
 
+    val B = "Blessed: ${if (isBlessed) "YES" else "NO"}"
+    val A = "Aura: $auraColor"
+    val H = "$name $healthStatus"
+    val HP = "HP: $healthPoints"
+
+    println("($HP) ($A) -> $H")
+    println("($HP) ($A) ($B) -> $H")
+
     // Player status
     println("$name $healthStatus")
 }
