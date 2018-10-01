@@ -1,23 +1,36 @@
 fun main(args: Array<String>) {
 
-    val greetingFunction = {playerName: String, numBuildings: Int ->
-        val currentYear = 2018
-        println("Adding $numBuildings houses")
-        "Welcome $playerName to SimVillage, Mayer! (copyright $currentYear)"
-    }
-
-    runSimulation("Andrew", greetingFunction)
-
-    // These are equal, just shorthand.
-
-    runSimulation("Andrew") { playerName, numBuildings ->
-        val currentYear = 2018
-        println("Adding $numBuildings houses")
-        "Welcome $playerName to SimVillage, Mayer! (copyright $currentYear)"
-    }
+    runSimulation()
 }
 
-fun runSimulation(playerName: String, greetingFunction: (String, Int) -> String) {
+inline fun runSimulationOld(playerName: String,
+                         costPrinter: (Int) -> Unit,
+                         greetingFunction: (String, Int) -> String) {
     val numBuilding = (1..3).shuffled().last() // Randomly selects 1, 2, or 3
+    costPrinter(numBuilding)
     println(greetingFunction(playerName, numBuilding))
+}
+
+fun runSimulation() {
+    val greetingFunction = configureGreetingFunction()
+    println(greetingFunction("Andrew"))
+    println(greetingFunction("Andrew"))
+}
+
+fun printConstructionCost(numBuilding: Int) {
+    val cost = 500
+    println("construction cost : ${cost * numBuilding}")
+}
+
+fun configureGreetingFunction(): (String) -> String {
+    val structureType = "hospitals"
+    var numBuildings = 5
+
+    return {playerName: String ->
+        val currentYear = 2018
+        numBuildings += 1
+        println("Adding $numBuildings $structureType")
+        "Welcome to SimVillage, $playerName! (Copyright $currentYear)"
+    }
+
 }
