@@ -1,8 +1,33 @@
+import kotlin.math.roundToInt
+
 const val TAVERN_NAME = "Taernyl's Folly"
+
+var playerGold = 10
+var playerSilver = 10
 
 fun main(args: Array<String>) {
     placeOrder("shandy,Dragons BREATH,5.91")
-    placeOrder("shandy,Shirley's Temple,5.91")
+
+}
+
+fun performPurchase(price: Double) {
+    displayBalance()
+    val totalPurse = playerGold + (playerSilver / 100.0)
+    println("Total purse: $totalPurse")
+    println("Purchasing item for $price")
+
+    val remainingBalance = totalPurse - price
+    println("Remaining balance: ${"%.2f".format(remainingBalance)}")
+
+    val remainingGold = remainingBalance.toInt()
+    val remainingSilver = (remainingBalance % 1 * 100).roundToInt()
+    playerGold = remainingGold
+    playerSilver = remainingSilver
+    displayBalance()
+}
+
+private fun displayBalance() {
+    println("Player's purse balance: Gold: $playerGold, Silver: $playerSilver")
 }
 
 private fun placeOrder(menuData: String) {
@@ -19,6 +44,24 @@ private fun placeOrder(menuData: String) {
     val message = "Madrigal buys a $name ($type) for $$price."
     println(message)
 
+    performPurchase(price.toDouble())
+
+    val phrase = if (name.toLowerCase() == "Dragons Breath".toLowerCase()) {
+        "Madrigal exclaims: ${toDragonSpeak("Ah delicious, $name")}"
+    } else {
+        "Madrigal says: Thanks for the $name"
+    }
+
+    println(phrase)
+
+    // -----
+
+    //TODO: Using this to halt execution so output isn't cluttered.
+
+    if (true) {
+        return
+    }
+
     // -----
 
     val (type2, name2, price2) = menuData.split(",")
@@ -27,8 +70,8 @@ private fun placeOrder(menuData: String) {
 
     // -----
 
-    val phrase = "Ah, delicious $name!"
-    println("Madrigal exclaims: ${toDragonSpeak(phrase)}")
+    val phrase0 = "Ah, delicious $name!"
+    println("Madrigal exclaims: ${toDragonSpeak(phrase0)}")
 
     // -----
 
