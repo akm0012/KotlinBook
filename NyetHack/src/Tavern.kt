@@ -12,6 +12,9 @@ val menuList = File("data/menu-items.txt")
         .readText()
         .split("\n")
 
+val patronGoldExample1 = mapOf("Eli" to 10.5, "Mordoc" to 8.0, "Sophie" to 5.5)
+val patronGold = mutableMapOf<String, Double>()
+
 fun main(args: Array<String>) {
 
     patronList.add("Andrew")
@@ -47,6 +50,10 @@ fun main(args: Array<String>) {
 
     println(uniquePatrons)
 
+    uniquePatrons.forEach {
+        patronGold[it] = 6.0
+    }
+
     var orderCount = 0
     while (orderCount < 10) {
         placeOrder(uniquePatrons.shuffled().first(),
@@ -54,6 +61,15 @@ fun main(args: Array<String>) {
 
         orderCount++
     }
+
+    println(patronGold)
+    println(patronGold.getOrDefault("Eli", "Not Found"))
+    println(patronGold.getOrDefault("Eli2", "Not Found"))
+}
+
+fun performPurchaseWithMap(price: Double, patronName: String) {
+    val totalPurse = patronGold.getOrDefault(patronName, 0.0)
+    patronGold[patronName] = totalPurse - price
 }
 
 fun performPurchase(price: Double) {
@@ -89,6 +105,15 @@ private fun placeOrder(patronName: String, menuData: String) {
     val price = data[2]
     val message = "$patronName buys a $name ($type) for $$price."
     println(message)
+
+    performPurchaseWithMap(price.toDouble(), patronName)
+
+    displayPatronBalance()
+    //TODO: Using this to halt execution so output isn't cluttered.
+
+    if (true) {
+        return
+    }
 
     performPurchase(price.toDouble())
 
@@ -148,4 +173,10 @@ private fun toDragonSpeak(phrase: String) =
                 else -> it.value
             }
         }
+
+private fun displayPatronBalance() {
+    patronGold.forEach { patron, balance ->
+        println("$patron has $balance gold")
+    }
+}
 
