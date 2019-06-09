@@ -1,3 +1,5 @@
+package com.bignerdranch.nyethack
+
 fun main(args: Array<String>) {
 
     var swordsJuggling: Int? = null
@@ -17,8 +19,8 @@ fun main(args: Array<String>) {
 }
 
 fun proficiencyCheck(swordsJuggling: Int?) {
-//    swordsJuggling ?: throw UnskilledJugglerException()
-    checkNotNull(swordsJuggling, {"Player doesn't know how to juggle!!!"})
+//    swordsJuggling ?: throw com.bignerdranch.nyethack.UnskilledJugglerException()
+    checkNotNull(swordsJuggling, {"com.bignerdranch.nyethack.Player doesn't know how to juggle!!!"})
 }
 
-class UnskilledJugglerException() : IllegalStateException("Player doesn't know how to juggle")
+class UnskilledJugglerException() : IllegalStateException("com.bignerdranch.nyethack.Player doesn't know how to juggle")
