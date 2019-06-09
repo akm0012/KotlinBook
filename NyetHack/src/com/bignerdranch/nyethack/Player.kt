@@ -19,8 +19,9 @@ class Player(_name: String,
 
     val hometown by lazy { selectHometown() }
 
+    var currentPosition = Coordinate(0,0)
+
     init {
-        println("init")
         require(healthPoints > 0) { "healthPoints must be greater than 0" }
         require(name.isNotBlank()) { "Player must have a name" }
     }
@@ -29,7 +30,6 @@ class Player(_name: String,
     constructor(name: String) : this(name,
             isBlessed = true,
             isImmortal = false) {
-        println("2nd const")
 
         if (name.toLowerCase() == "kan") {
             healthPoints = 40
