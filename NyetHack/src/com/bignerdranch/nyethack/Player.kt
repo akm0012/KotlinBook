@@ -23,7 +23,6 @@ class Player(_name: String,
         println("init")
         require(healthPoints > 0) { "healthPoints must be greater than 0" }
         require(name.isNotBlank()) { "Player must have a name" }
-        require(!name.contains("A", true)) { "Player must have a good name" }
     }
 
     // Secondary Constructor
@@ -31,8 +30,6 @@ class Player(_name: String,
             isBlessed = true,
             isImmortal = false) {
         println("2nd const")
-
-        this.name = "B"
 
         if (name.toLowerCase() == "kan") {
             healthPoints = 40

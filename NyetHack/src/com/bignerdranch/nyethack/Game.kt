@@ -2,23 +2,14 @@ package com.bignerdranch.nyethack
 
 fun main(args: Array<String>) {
 
-    val player = Player("Andrew222")
+    val player = Player("Andrew")
     player.castFireball()
 
-    // Aura Color
-    val auraColor = player.auraColor()
+    var currentRoom: Room = TownSquare()
+    println(currentRoom.description())
+    println(currentRoom.load())
 
-    // com.bignerdranch.nyethack.Player status
     printPlayerStatus(player = player)
-
-    player.auraColor()
-
-    //These values are computed each time as there is no data backing them
-    println(player.diceValue)
-    println(player.diceValue)
-    println(player.diceValue)
-    println(player.diceValue)
-    println(player.diceValue)
 }
 
 private fun printPlayerStatus(player: Player) {
