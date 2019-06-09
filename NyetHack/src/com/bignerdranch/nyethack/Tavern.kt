@@ -1,5 +1,6 @@
 package com.bignerdranch.nyethack
 
+import com.bignerdranch.nyethack.extensions.random
 import java.io.File
 import kotlin.math.roundToInt
 
@@ -32,7 +33,7 @@ fun main(args: Array<String>) {
 
     patronList.forEachIndexed { index, patron ->
         println("$patron you are ${index + 1} in line")
-        placeOrder(patron, menuList.shuffled().first())
+        placeOrder(patron, menuList.random())
     }
 
     println(menuList)
@@ -43,8 +44,8 @@ fun main(args: Array<String>) {
 
 
     (0..9).forEach {
-        val first = patronList.shuffled().first()
-        val last = lastName.shuffled().first()
+        val first = patronList.random()
+        val last = lastName.random()
         val name = "$first $last"
 
         uniquePatrons.add(name)
@@ -58,8 +59,8 @@ fun main(args: Array<String>) {
 
     var orderCount = 0
     while (orderCount < 10) {
-        placeOrder(uniquePatrons.shuffled().first(),
-                menuList.shuffled().first())
+        placeOrder(uniquePatrons.random(),
+                menuList.random())
 
         orderCount++
     }
