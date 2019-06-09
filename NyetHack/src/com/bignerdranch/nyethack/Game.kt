@@ -2,7 +2,7 @@ package com.bignerdranch.nyethack
 
 fun main(args: Array<String>) {
 
-    val player = Player()
+    val player = Player("Andrew222")
     player.castFireball()
 
     // Aura Color
