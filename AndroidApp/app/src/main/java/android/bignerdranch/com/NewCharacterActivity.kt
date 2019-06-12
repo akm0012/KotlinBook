@@ -3,10 +3,14 @@ package android.bignerdranch.com
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_new_character.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 private const val CHARACTER_DATA_KEY = "CHARACTER_DATA_KEY"
 
-class NewCharacterActivity : AppCompatActivity() {
+class NewCharacterActivity: AppCompatActivity() {
 
     private var characterData = CharacterGenerator.generate()
 
@@ -16,10 +20,11 @@ class NewCharacterActivity : AppCompatActivity() {
 
         characterData = savedInstanceState?.characterData ?: CharacterGenerator.generate()
 
-
         generateButton.setOnClickListener {
-            characterData = CharacterGenerator.generate()
-            displayCharacterData()
+            CoroutineScope(Dispatchers.Main).launch {
+                characterData = fetchCharacterData().await()
+                displayCharacterData()
+            }
         }
 
         displayCharacterData()
